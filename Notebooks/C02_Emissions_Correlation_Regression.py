@@ -4,7 +4,7 @@
 # # Correlation and Regression Analysis of CO₂ Emissions in Vehicles
 
 # ## 1. OBJECTIVES: 
-# Identifying correlation between features and find the best regression model to predict CO2 emissions (target variable) of unobserved cars based on the selected features.
+# Identifying correlation between features and finding the best regression model to predict CO2 emissions (target variable) of unobserved cars based on the selected features.
 
 # In[1]:
 
@@ -452,9 +452,9 @@ plt.tight_layout()
 plt.show()
 
 
-# The Actual vs Predicted scatter plot shows a higher density of observations close to the 45-degree reference line, indicating good agreement between predicted and observed CO2EMISSIONS. Minor deviations are observed at higher and lower emission levels compared to the linear regression.
+# The Actual vs Predicted scatter plot shows a higher density of observations close to the 45-degree reference line, indicating good agreement between predicted and observed CO2EMISSIONS. Minor deviations are observed at higher and lower emission levels, but overall dispersion is reduced compared to the linear regression.
 
-# In[37]:
+# In[36]:
 
 
 # Predictions from the linear multiple regression model
@@ -482,11 +482,11 @@ plt.show()
 
 
 
-# The residuals display a visible curvature pattern, indicating that the linearity assumption is violated and motivating the introduction of a polynimial term.
+# The residuals display a visible curvature pattern, indicating that the linearity assumption is violated and motivating the introduction of a polynomial term.
 
 # ### CO2EMISSIONS vs FUELCONSUMPTION_COMB_MPG
 
-# In[ ]:
+# In[37]:
 
 
 plt.figure(figsize=(8,5))
@@ -499,7 +499,7 @@ plt.grid(True, linestyle='--', alpha=0.7)
 plt.show()
 
 
-# In[ ]:
+# In[38]:
 
 
 slope,intercept,r_value,p_value,std_err=linregress(df_fuel['FUELCONSUMPTION_COMB_MPG'], df_fuel['CO2EMISSIONS'])
@@ -510,7 +510,7 @@ print(f"Correlation coefficient (r): {r_value:.4f}")
 print(f"p-value:{p_value:.4f}")
 
 
-# In[ ]:
+# In[39]:
 
 
 ##  Inferential decision
@@ -525,7 +525,7 @@ else:
 
 # ### Polynomial regression 
 
-# In[42]:
+# In[40]:
 
 
 poly = PolynomialFeatures(degree=2, include_bias=False)
@@ -543,7 +543,7 @@ y_pred_poly = lin_reg_poly.predict(X_test)
 print("R² (Polynomial):", r2_score(y_test, y_pred_poly))
 
 
-# In[43]:
+# In[41]:
 
 
 # Scatterplot of actual vs predicted CO2 emissions
@@ -571,7 +571,7 @@ plt.show()
 
 # ## Multiple Linear Regression with Polynomial Term (Corrected Model)
 
-# In[44]:
+# In[42]:
 
 
 # Create polynomial term for MPG
@@ -580,7 +580,7 @@ df_fuel["MPG_sq"] = df_fuel["FUELCONSUMPTION_COMB_MPG"] ** 2
 df_fuel[["ENGINESIZE", "FUELCONSUMPTION_COMB_MPG", "MPG_sq", "CO2EMISSIONS"]].head()
 
 
-# In[45]:
+# In[43]:
 
 
 # definition of X and y 
@@ -588,7 +588,7 @@ X = df_fuel[["ENGINESIZE", "FUELCONSUMPTION_COMB_MPG", "MPG_sq"]]
 y = df_fuel["CO2EMISSIONS"]
 
 
-# In[46]:
+# In[44]:
 
 
 # features standardization 
@@ -596,14 +596,14 @@ scaler = StandardScaler()
 X_std = scaler.fit_transform(X)
 
 
-# In[47]:
+# In[45]:
 
 
 # Splitting data
 X_train, X_test, y_train, y_test = train_test_split(X_std, y, test_size=0.2, random_state=42)
 
 
-# In[48]:
+# In[46]:
 
 
 # model training
@@ -611,7 +611,7 @@ lin_reg_poly_mult = linear_model.LinearRegression()
 lin_reg_poly_mult.fit(X_train, y_train)
 
 
-# In[49]:
+# In[47]:
 
 
 coef_std = lin_reg_poly_mult.coef_
@@ -628,7 +628,7 @@ print("Intercept:", intercept_std)
 # - The positive quadratic term indicates diminishing marginal reductions in CO2EMISSIONS at higher FUELCONSUMPTION_COMB_MPG values, confirming the presence of a non-linear relationship between fuel efficiency and emissions.
 # - The intercept has no physical interpretation, as zero engine size and zero fuel efficiency are outside the observed data domain.
 
-# In[50]:
+# In[48]:
 
 
 # model evaluation
@@ -644,7 +644,7 @@ print(f"R² test : {r2_test:.3f}")
 
 # The polynomial multiple regression model achieves strong and consistent performance, with an R² of 0.88 on the training set and ~0.90 on the test set. The close agreement between train and test scores indicates good generalization and limited overfitting. Combined with improved residual behavior, these results suggest that the model captures the underlying data structure more accurately than the purely linear specification.
 
-# In[51]:
+# In[49]:
 
 
 # Actual vs Predicted
@@ -678,7 +678,7 @@ plt.show()
 
 # The model shows improved predictive accuracy for vehicles with lower CO₂ emissions, as evidenced by the higher density of points close to the perfect prediction line.
 
-# In[52]:
+# In[50]:
 
 
 residuals = y_test - y_test_pred
@@ -698,7 +698,7 @@ plt.show()
 # - FUELCONSUMPTION_COMB_MPG presents a strong negative non-linear relationship with CO2EMISSIONS; higher FUELCONSUMPTION_COMB_MPG is associated with lower CO2EMISSIONS.
 # - Simple linear regression (ENGINESIZE) explains ~76% of variability; multiple regression (ENGINESIZE + FUELCONSUMPTION_COMB_MPG) improves R² to ~88%, showing better predictive power.
 # - Polynomial regression captures non-linear effects between FUELCONSUMPTION_COMB_MPG and CO2EMISSIONS, improving fit for extreme values.
-# - By introducing a polynomial term for fuel efficiency (MPG²), the multiple linear regression model correctly captures the non-linear relationship between fuel consumption and CO2 emissions while maintaining interpretability. This specification improves R² to ~90%, and enhances predictive performance compared to the purely linear model.
+# - By introducing a polynomial term for FUELCONSUMPTION_COMB_MPG (MPG²), the multiple linear regression model correctly captures the non-linear relationship between FUELCONSUMPTION_COMB_MPG and CO2EMISSIONS while maintaining interpretability. This specification improves R² to ~90%, and enhances predictive performance compared to the purely linear model.
 # 
 
 # In[ ]:
