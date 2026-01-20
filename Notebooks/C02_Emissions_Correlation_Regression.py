@@ -306,7 +306,7 @@ plt.grid(alpha=0.3)
 plt.show()
 
 
-# * The Actual vs Predicted values are largely concentrated around the line, indicating a good overall fit. However, for higher CO2EMISSIONS levels, some points deviates from the line, suggesting that the model tends to be less accurate for vehicles with high emissions. 
+# * The Actual vs Predicted values are largely concentrated around the line, indicating a good overall fit. However, for higher CO2EMISSIONS levels, some points deviate from the line, suggesting that the model tends to be less accurate for vehicles with high emissions. 
 
 # ## Multiple linear regression
 
