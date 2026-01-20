@@ -17,7 +17,7 @@ Analysis of factors influencing **CO₂ emissions** in vehicles (Canada)
 - Residual analysis
 - Actual vs Predicted plots
 ## Tools
-Python, Pandas, NumPy, Matplotlib, Seaborn, scipy, sklearn
+Python, Pandas, NumPy, Matplotlib, Seaborn, scipy, Scikit-learn
 ## Limitations
 - Dataset limited to Canada; results may not generalize globally.
 - Some categorical features were dropped for simplicity (e.g., vehicle make, model).
